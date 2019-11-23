@@ -1,7 +1,7 @@
 import json
 import requests
 
-from ..utils.github_api import create_github_url
+from ..utils.laguinho_api import create_github_url
 
 def validate_input(value):
     """Recebe um valor como input e retorna uma saida válida.

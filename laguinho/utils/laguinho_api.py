@@ -1,4 +1,7 @@
 import requests
+import json
+
+from laguinho.values import API_URL
 
 def create_github_url(metadata, is_file=False):
     """Constrói a URL da API
@@ -19,15 +22,18 @@ def create_github_url(metadata, is_file=False):
 
     return ("https://raw.githubusercontent.com/{}/{}/master{}" if is_file else "https://api.github.com/repos/{}/{}/contents{}").format(username, repo, data_path)
 
+def request_laguinho_api(endpoint):
+    """Faz uma requisição a API do Laguinho.
 
-def request_github_api(url):
-    """Faz uma requisição a API do Github.
 
-
-    Faz uma requisição a API do Github.
+    Faz uma requisição a API do Laguinho.
 
     Args:
-            url: URL do Github a ser requisitada.
+            endpoint: Endpoint do Laguinho a ser requisitada.
     """
-    response = requests.get(url)
+    response = requests.get(API_URL + endpoint)
     return response.content
+
+def get_dataset(name):
+    response = request_laguinho_api("/dataset/{}".format(name))
+	return json.loads(response)
